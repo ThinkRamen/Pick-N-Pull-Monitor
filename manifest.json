@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Pick N Pull Monitor",
+  "version": "1.0",
+  "description": "Monitor Pick N Pull inventory",
+  "permissions": ["activeTab", "storage", "alarms", "notifications"],
+  "action": {
+    "default_title": "Click to open settings"
+  },
+  "options_ui": {
+    "page": "settings.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
