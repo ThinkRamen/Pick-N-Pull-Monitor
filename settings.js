@@ -85,6 +85,26 @@ function launchSearch(url) {
   showToast("launching search.. 🚀");
 }
 
+// function to check for updates
+async function checkForUpdates() {
+  chrome.runtime.sendMessage(
+    { action: "checkForInventoryUpdates" },
+    (response) => {
+      if (response && response.success) {
+        console.log("inventory check completed.");
+        updateSearches();
+      } else {
+        console.error("Error checking for inventory updates:", response);
+      }
+    }
+  );
+}
+const checkUpdatesButton = document.getElementById("check-for-updates");
+checkUpdatesButton.addEventListener("click", () => {
+  checkForUpdates();
+  showToast("checking for updates... 🔄");
+});
+
 // validate url
 function isValidUrl(url) {
   const urlRegex = new RegExp(

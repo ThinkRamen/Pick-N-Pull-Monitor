@@ -3,7 +3,8 @@
   "name": "Pick N Pull Monitor",
   "version": "1.0",
   "description": "Monitor Pick N Pull inventory",
-  "permissions": ["activeTab", "storage", "alarms", "notifications"],
+  "permissions": ["storage", "alarms", "notifications", "webRequest"],
+  "host_permissions": ["*://*.picknpull.com/*"],
   "action": {
     "default_title": "Click to open settings"
   },
@@ -12,6 +13,7 @@
     "open_in_tab": true
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   }
 }
