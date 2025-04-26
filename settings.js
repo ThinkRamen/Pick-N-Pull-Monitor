@@ -35,8 +35,9 @@ function saveSearch() {
     showToast("this url already exists ⚠");
     return;
   }
-
-  searches.push({ name: nameInput, url: urlInput });
+  const params = Object.fromEntries(new URL(urlInput).searchParams.entries());
+  console.log("params:\n", params);
+  searches.push({ name: nameInput, url: urlInput, params: params });
   chrome.storage.local.set({ searches }, () => {
     showToast("search saved successfully 💾");
   });
@@ -49,9 +50,13 @@ function updateSearches() {
 
   searches.forEach((search) => {
     const searchItem = document.createElement("div");
+    const params = Object.entries(search.params)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join(" ");
     searchItem.className = "search-item";
     searchItem.innerHTML = `
                         <h3>${search.name}</h3>
+                        <h3>${params}</h3>
                         <h3>${search.url}</h3>
                         <button class="launch-search">launch 🚀</button>
                         <button class="delete-search">delete 🚮</button>

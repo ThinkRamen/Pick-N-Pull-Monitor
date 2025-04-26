@@ -63,18 +63,25 @@ async function checkForInventoryUpdates() {
   // for every search in searches, fetch inventory from their url
   searches = searches.searches || []; // ensure searches is an array
   console.log("searches:\n", searches);
-  searches.forEach(async (search) => {
-    try {
-      const response = await fetch(search.url, {
-        credentials: "include",
-        headers: {
-          Origin: "https://www.picknpull.com",
-        },
-      });
-    } catch (error) {
-      console.error(`Failed to fetch ${search.url}:`, error);
-    }
-  });
+  // TODO: build a api call from the url and fetch the data
+  // https://www.picknpull.com/api/vehicle/search?&makeId=90&modelId=1150&year=&distance=50&zip=95843&language=english
+  // required params: makeId, modelId, distance, zip - max distance 25000 mi = unlimited
+  // optional params: year, language
+
+  // searches.forEach(async (search) => {
+  //   try {
+  //     const response = await fetch(search.url, {
+  //       credentials: "include",
+  //       headers: {
+  //         Origin: "https://www.picknpull.com",
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     console.log("data:\n", data);
+  //   } catch (error) {
+  //     console.error(`Failed to fetch ${search.url}:`, error);
+  //   }
+  // });
 }
 
 // notification function

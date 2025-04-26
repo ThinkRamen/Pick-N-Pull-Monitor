@@ -1,73 +1,150 @@
 :root {
-  color-scheme: dark light; /* Helps browsers handle dark/light mode naturally */
+  color-scheme: dark light;
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --text: #e0e0e0;
+  --text-dim: #bbbbbb;
+  --primary: #5d9df5;
+  --primary-hover: #7ab1ff;
+  --accent: #1a73e8;
+  --accent-hover: #185abc;
+  --border: #444;
+  --radius: 0.5em;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  margin: 1.25em;
-  background-color: #121212; /* Dark background */
-  color: #e0e0e0; /* Light text for contrast */
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
-  font-size: 1.5em;
-  color: #ffffff; /* Brighter for headings */
-  margin-bottom: 0.625em;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: white;
+  margin: 1.5rem 0 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: 1.125em;
-  color: #bbbbbb; /* Slightly dimmer than h1 */
-  margin-top: 1.25em;
+  font-size: clamp(1.125rem, 3vw, 1.5rem);
+  color: var(--text-dim);
+  margin: 1.5rem 0 1rem;
+  font-weight: 600;
 }
 
 a {
-  color: #5d9df5; /* Softer blue for dark mode */
+  color: var(--primary);
   text-decoration: none;
+  transition: var(--transition);
+  border-bottom: 1px solid transparent;
 }
 
 a:hover {
-  color: #7ab1ff; /* Lighter hover state */
-  text-decoration: underline;
+  color: var(--primary-hover);
+  border-bottom-color: currentColor;
 }
 
 input {
-  display: block;
-  margin: 0.625em 0;
-  padding: 0.625em;
   width: 100%;
-  max-width: 25em;
-  background-color: #1e1e1e; /* Dark input background */
-  color: #e0e0e0;
-  border: 0.0625em solid #444; /* Darker border */
-  border-radius: 0.25em;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(93, 157, 245, 0.2);
 }
 
 button {
-  padding: 0.625em 1.25em;
-  margin-right: 0.625em;
-  background-color: #1a73e8; /* Google's dark mode blue */
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
   color: white;
   border: none;
-  border-radius: 0.25em;
+  border-radius: var(--radius);
   cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 button:hover {
-  background-color: #185abc; /* Slightly darker hover */
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
 }
 
 #check-for-updates {
   cursor: pointer;
-  color: #5d9df5; /* Match link color */
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
-/* Optional: Add a subtle transition for smoother mode switches */
-body,
-input,
-button {
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Modern scrollbar (for supported browsers) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* Micro-interactions */
+@media (hover: hover) {
+  button,
+  a,
+  input {
+    transition: var(--transition);
+  }
 }
