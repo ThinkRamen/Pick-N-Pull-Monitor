@@ -113,6 +113,33 @@ async function checkForInventoryUpdates() {
 				(a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)
 			);
 			if (search.inventory.lengh < inventory.length) {
+				// compare the new inventory with the old inventory
+				const newInventory = inventory.filter((newItem) => {
+					return !search.inventory.some((oldItem) => oldItem.id === newItem.id);
+				});
+				console.log("new inventory found for this search:\n", newInventory);
+				// notify the user about the new inventory
+				notifyUser(
+					"New Inventory Found!",
+					`Found ${newInventory.length} new vehicles for ${search.name}\n
+					${Object.entries(search.params).map(([key, value]) => `${key}: ${value}`)}.\n
+					${search.url}`
+				);
+				// test notification
+				chrome.runtime.onMessage.addListener(
+					(request, sender, sendResponse) => {
+						if (request.action === "testNotification") {
+							notifyUser(
+								"New Inventory Found!",
+								`Found ${newInventory.length} new vehicles for ${search.name}\n
+                ${Object.entries(search.params).map(
+									([key, value]) => `${key}: ${value}`
+								)}.\n
+                ${search.url}`
+							);
+						}
+					}
+				);
 				console.log("new inventory found for this search.");
 			}
 
